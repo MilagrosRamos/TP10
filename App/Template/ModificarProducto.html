@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Pomelandia</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/business-casual.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <h1 class="site-heading text-center text-white d-none d-lg-block">
+    <span class="site-heading-lower">La flechi verdu</span>
+    <span class="site-heading-upper text-primary mb-3">Pomelandia</span>
+  </h1>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">Start Bootstrap</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item px-lg-4">
+            <a class="nav-link text-uppercase text-expanded" href="index.html">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item px-lg-4">
+            <a class="nav-link text-uppercase text-expanded" href="about.html">About</a>
+          </li>
+          <li class="nav-item active px-lg-4">
+            <a class="nav-link text-uppercase text-expanded" href="AgregarProducto.html">Agregar Producto</a>
+          </li>
+          <li class="nav-item px-lg-4">
+            <a class="nav-link text-uppercase text-expanded" href="store.html">Store</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="page-section cta">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-9 mx-auto">
+            <h2 class="section-heading mb-5">
+              <span class="section-heading-lower">Modificar Producto</span>
+            </h2>
+            
+           <form>
+            <div class="form-group">
+              <label for="nombre">Nombre</label>
+              <input class="form-control" id="nombre" placeholder="Ingrese el nombre">
+            </div>
+            <div class="form-group">
+              <label for="descripcion">Descripción</label>
+              <input class="form-control" id="descripcion" placeholder="Ingrese una descripcion">
+            </div>
+            <div class="form-group">
+              <label for="imagen">Url de la Imagen</label>
+              <input class="form-control" id="urlImagen" placeholder="Ingrese la url de una imagen">
+            </div>
+            <div class="form-group">
+              <label for="stock">Stock</label>
+              <input class="form-control" id="stock"  placeholder="Ingrese el stock">
+            </div>
+            <div class="form-group">
+              <label for="Precio">Precio</label>
+              <input class="form-control" id="precio" placeholder="Ingrese el precio">
+            </div>
+            <button type="submit" id="modificarProd" class="btn btn-outline-dark mb-2">Añadir producto</button>
+           </form>
+
+          </div>
+        </div>
+    </div>
+  </section>
+  <script type="text/javascript">
+
+        $(document).ready(function(){
+          $("#modificarProd").click(function(e) {
+          e.preventDefault();
+          setearValores();
+          modificar();
+        });
+      });
+
+      function setearValores(){
+        $.ajax({
+          url:"http://localhost/tp10/api/controller/productoController.php?action=getById",
+          method: "POST",
+          data:{
+            action: 'getById',
+            
+          },
+
+        })
+      }
+
+    function modificar(){
+      $.ajax({
+          url:"http://localhost/tp10/api/controller/productoController.php?action=edit",
+          method: "POST",
+          data: {
+            action: 'edit',
+            nombre: $("#nombre").val(),
+            descripcion: $("#descripcion").val(),
+            urlImagen: $("#urlImagen").val(),
+            precio: $("#precio").val(),
+            stock: $("#stock").val()
+          },
+          success:function(res){
+                alert("se modifico correctamente!");
+              }
+          })
+      }
+  </script>
+  <footer class="footer text-faded text-center py-5">
+    <div class="container">
+      <p class="m-0 small">Copyright &copy; Your Website 2019</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
