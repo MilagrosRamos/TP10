@@ -15,11 +15,17 @@ class ProductoDAO{
     }
 
     public static function Remove($id){
+        
         $pdo= DB::Connect();
-        $query = $pdo -> prepare ("DELETE FROM `productos` WHERE id = " . $id);
-        $query -> execute();
-        $arr = $query -> fetchAll(PDO:: FETCH_CLASS, 'Producto');
-        return $arr;
+        $stmt = $pdo->prepare ("DELETE FROM productos WHERE id =  '$id'");
+        $stmt->execute();
+        
+        if ($pdo->query($stmt) === TRUE) {
+            $arr=$stmt->fetchAll(PDO::FETCH_CLASS, 'Producto');
+            return $arr;
+        } else {
+            echo "Error deleting record: " . $pdo->error;
+        }
     }
 
     public static function Edit($id, $nombre, $descripcion,$imagen, $stock, $precio){

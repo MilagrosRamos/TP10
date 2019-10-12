@@ -157,7 +157,7 @@
       }
 
 
-      $(function(){
+      $(document).ready(function(){
         $("#eliminarProd").click(function(e) {
           e.preventDefault();
           eliminar();
@@ -166,7 +166,7 @@
 
     function eliminar(){
       $.ajax({
-          url:"http://localhost/tp10/api/controller/productoController.php?action=remove",
+          url:"http://localhost/tp10/Api/Controller/productoController.php?action=remove",
           method: "POST",
           data: {
             action: 'remove',

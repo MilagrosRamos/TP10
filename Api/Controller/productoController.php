@@ -8,17 +8,10 @@ switch ($action){
         agregarProducto($_POST['nombre'], $_POST['descripcion'], $_POST['imagen'], $_POST['stock'], $_POST['precio']);
         break;
     case 'edit':
-        $id             = $_POST['id'];
-        $nombre         = $_POST['nombre'];
-        $stock          = $_POST['stock'];
-        $descripcion    = $_POST['descripcion'];
-        $precio         = $_POST['precio'];
-        $imagen         = $_POST['imagen'];
-        echo json_encode(productoDAO::edit($id,$nombre,$stock,$descripcion,$precio,$imagen));
+        modificarProducto($_POST['id'],$_POST['nombre'], $_POST['descripcion'], $_POST['imagen'], $_POST['stock'], $_POST['precio']);
         break;
     case 'remove':
-        $id             = $_POST['id'];
-        echo json_encode(productoDAO::remove($id));
+        eliminarProducto($_POST['id']);
         break;
     case 'list':
         echo json_encode(productoDAO:: getAll());
@@ -30,7 +23,18 @@ switch ($action){
 }
 
 function agregarProducto($nombre, $descripcion, $imagen, $stock, $precio) {
-        $result = productoDAO::nuevoProducto($nombre, $descripcion, $imagen, $stock, $precio);
-        echo $result;
+    $result = productoDAO::nuevoProducto($nombre, $descripcion, $imagen, $stock, $precio);
+    echo $result;
 }
+
+function eliminarProducto($id){
+    $result = productoDAO::remove($id);
+    echo $result;
+}
+
+function modificarProducto($id,$nombre,$stock,$descripcion,$precio,$imagen){
+    $result = productoDAO::edit($id,$nombre,$stock,$descripcion,$precio,$imagen);
+    echo $result;
+}
+
 ?>
