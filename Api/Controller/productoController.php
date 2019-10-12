@@ -5,13 +5,7 @@ $action = isset($_POST['action']) ? $_POST['action'] : $_GET['action'];
 
 switch ($action){
     case 'new':
-        $id             = $_POST['id'];
-        $nombre         = $_POST['nombre'];
-        $stock          = $_POST['stock'];
-        $descripcion    = $_POST['descripcion'];
-        $precio         = $_POST['precio'];
-        $imagen         = $_POST['imagen'];
-        echo json_encode(productoDAO::nuevoProducto($id,$nombre,$stock,$descripcion,$precio,$imagen));
+        agregarProducto($_POST['nombre'], $_POST['descripcion'], $_POST['imagen'], $_POST['stock'], $_POST['precio']);
         break;
     case 'edit':
         $id             = $_POST['id'];
@@ -33,6 +27,10 @@ switch ($action){
             $id             = $_POST['id'];
             echo json_encode(productoDAO::getByID($id));
         break;
+}
 
+function agregarProducto($nombre, $descripcion, $imagen, $stock, $precio) {
+        $result = productoDAO::nuevoProducto($nombre, $descripcion, $imagen, $stock, $precio);
+        echo $result;
 }
 ?>

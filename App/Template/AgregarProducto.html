@@ -99,29 +99,34 @@
   <script type="text/javascript">
 
     $(document).ready(function() {
-          $("#agregarProd").click(function(e) {
-            e.preventDefault();
-            agregar();
-          });
-        });
+      $("#agregarProd").click(function(e) {
+        e.preventDefault();
+        agregar();
+      });
+    });
     
     function agregar(){
       $.ajax({
-          url:"http://localhost/tp10/api/controller/productoController.php?action=new",
-          method: "POST",
-          data: {
-            action: 'new',
-            nombre:       $("#nombre").val(),
-            descripcion:  $("#descripcion").val(),
-            urlImagen:    $("#urlImagen").val(),
-            precio:       $("#precio").val(),
-            stock:        $("#stock").val()
-          },
-          success:function(res){
-                alert("se guardo correctamente!");
-              }
-          })
-      }
+        url: "../../Api/Controller/productoController.php",
+        type: "POST",
+        data: {
+          action:       'new',
+          nombre:       $("#nombre").val(),
+          descripcion:  $("#descripcion").val(),
+          imagen:       $("#urlImagen").val(),
+          precio:       $("#precio").val(),
+          stock:        $("#stock").val()
+        },
+        success: function(result){
+          if (result == 1) {
+            alert("Se agrego correctamente");
+          }
+          else {
+            alert("Hubo un error");
+          }
+        }
+      });
+    }
   </script>
   <footer class="footer text-faded text-center py-5">
     <div class="container">

@@ -29,13 +29,20 @@ class ProductoDAO{
         $arr = $query -> fetchAll(PDO:: FETCH_CLASS, 'Producto');
         return $arr;
     }
-    public static function nuevoProducto($id, $nombre, $descripcion,$imagen, $stock, $precio){
-        $pdo= DB::Connect();
-        $query = $pdo -> prepare ("INSERT INTO 'producto'('id', 'nombre','descripcion', 'imagen','stock','precio') VALUES (:id, :nombre, :descripcion, :imagen, :stock, :precio)");
-        $query -> execute();
-        $arr = $query -> fetchAll(PDO:: FETCH_CLASS, 'Producto');
-        return $arr;
+    
+    public static function nuevoProducto($nombre, $descripcion,$imagen, $stock, $precio){
+        
+        try {
+            $pdo = DB::Connect();
+            $query = "INSERT INTO productos (nombre, descripcion, imagen, stock, precio) VALUES ('$nombre', '$descripcion', '$imagen', '$stock', '$precio')";
+            $pdo->exec($query);
+            return true;
+        }
+        catch(PDOException $e) {
+            return $e->getMessage();
+        }
     }
+
     public static function getByID($id){
         $pdo= DB::Connect();
         $query = $pdo -> prepare ("SELECT * FROM Productos WHERE id = " . $id);
