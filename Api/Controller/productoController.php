@@ -17,8 +17,7 @@ switch ($action){
         echo json_encode(productoDAO:: getAll());
         break;
     case 'getById':
-            $id             = $_POST['id'];
-            echo json_encode(productoDAO::getByID($id));
+            getByID($_POST['id']);
         break;
 }
 
@@ -34,6 +33,11 @@ function eliminarProducto($id){
 
 function modificarProducto($id,$nombre,$stock,$descripcion,$precio,$imagen){
     $result = productoDAO::edit($id,$nombre,$stock,$descripcion,$precio,$imagen);
+    echo $result;
+}
+
+function getByID($id){
+    $result = productoDAO::getById($id);
     echo $result;
 }
 

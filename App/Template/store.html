@@ -159,26 +159,23 @@
       }
 
 
-      $(document).ready(function(){
-        $("#eliminarProd").click(function(e) {
-          e.preventDefault();
-          eliminar();
-        });
-      });
-
-    function eliminar(){
+      $(document).on("click", "#eliminarProd", function(){
+      var btn = $(this);
+      var tr = btn.closest('tr');
+      var primogenite = tr.children()[0];
+      var ID = primogenite.innerHTML;
       $.ajax({
-          url:"http://localhost/tp10/Api/Controller/productoController.php?action=remove",
-          method: "POST",
-          data: {
-            action: 'remove',
-            id: $("#").val()
-          },
-          success:function(res){
-                alert("se elimino correctamente!");
-              }
-          })
-      }
+        url: "http://localhost/tp10/Api/Controller/productoController.php?action=remove",
+        method: 'POST',
+        data: { id: ID }
+      }).done(function() {
+        tr.remove();
+        alert("se elimino correctamente!");
+      })
+    });
+
+      
+  
   </script>
   <script >
     $('.list-hours li').eq(new Date().getDay()).addClass('today');
