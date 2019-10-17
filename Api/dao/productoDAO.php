@@ -17,7 +17,7 @@ class ProductoDAO{
     public static function Remove($id){
         try{
             $pdo = DB::Connect();
-            $query = "DELETE FROM productos WHERE id = '$id'";
+            $query = "DELETE FROM productos WHERE id = $id";
             $pdo->exec($query);
             return true;
         }
