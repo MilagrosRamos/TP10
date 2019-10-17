@@ -146,9 +146,11 @@
                         <td>${res[i].precio}</td>
                         <td>${res[i].stock}</td>
                         <td><img src="${res[i].imagen}" height="80px" width="80px"/></td>
-                        <td><a href="ModificarProducto.html" class="btn btn-outline-warning">Modificar Producto</a>
+                        <td>
+                          
+                        <a href="ModificarProducto.html" class="btn btn-outline-warning">Modificar Producto</a>
                         </td>
-                        <td><button type="button" id="eliminarProd" class="btn btn-outline-warning">Eliminar Producto</button></td>
+                        <td><button id="eliminarProd" type="submit" class="btn btn-outline-warning">Eliminar Producto</button></td>
                       </tr>`;
                   }
                   $('#datos').html(tabla);
@@ -170,7 +172,7 @@
           method: "POST",
           data: {
             action: 'remove',
-            id: $("#id").val()
+            id: $("#").val()
           },
           success:function(res){
                 alert("se elimino correctamente!");
@@ -178,7 +180,6 @@
           })
       }
   </script>
-  <!-- Script to highlight the active date in the hours list -->
   <script >
     $('.list-hours li').eq(new Date().getDay()).addClass('today');
   </script>

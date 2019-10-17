@@ -110,6 +110,7 @@
           data:{
             action: 'getById',
             
+
           },
 
         })
@@ -121,11 +122,11 @@
           method: "POST",
           data: {
             action: 'edit',
-            nombre: $("#nombre").val(),
-            descripcion: $("#descripcion").val(),
-            urlImagen: $("#urlImagen").val(),
-            precio: $("#precio").val(),
-            stock: $("#stock").val()
+            nombre:           $("#nombre").val(),
+            descripcion:      $("#descripcion").val(),
+            urlImagen:        $("#urlImagen").val(),
+            precio:           $("#precio").val(),
+            stock:            $("#stock").val()
           },
           success:function(res){
                 alert("se modifico correctamente!");
