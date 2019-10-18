@@ -111,26 +111,28 @@
       var ID = findGetParameter("id");
       //$("#nombre").val("Messi"); EJEMPLO DE COMO CARGAR VALORES AL INPUT
 
-
       $.ajax({
         url: 'http://localhost/tp10/api/controller/productoController.php?action=getById',
         type: 'GET',
-        data: {action: 'getById', id : ID},
+        data: {id : ID},
+        dataType:"json"  
       })
+
+     
       .done(function() {
+       
         console.log("success");
       })
       .fail(function() {
-        console.log("error");
-      }); 
-
-      
+        alert("error");
+      });
+     
     }
 
     function modificar(){
       $.ajax({
         url:"http://localhost/tp10/api/controller/productoController.php?action=edit",
-        method: "POST",
+        type: "POST",
         data: {
           action:           'edit',
           nombre:           $("#nombre").val(),

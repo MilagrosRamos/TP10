@@ -53,10 +53,11 @@ class ProductoDAO{
     }
 
     public static function getByID($id){
-        $pdo= DB::Connect();
-        $query = $pdo -> prepare ("SELECT * FROM productos WHERE id = '$id'");
-        $query -> execute();
-        $arr = $query -> fetchAll(PDO:: FETCH_CLASS, 'Producto');
+        $list = array();
+        $pdo = DB::Connect();
+        $stmt = $pdo->prepare("SELECT * FROM Productos WHERE id = $id");
+        $stmt->execute();
+        $arr = $stmt->fetchAll(PDO::FETCH_CLASS, 'Producto');
         return $arr;
     }
 }
