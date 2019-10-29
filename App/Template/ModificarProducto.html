@@ -86,8 +86,8 @@
               <label for="Precio">Precio</label>
               <input class="form-control" id="precio" placeholder="Ingrese el precio">
             </div>
-            <button type="submit" id="modificarProd" class="btn btn-outline-dark mb-2">Añadir producto</button>
           </form>
+          <button id="modificarProd" class="btn btn-outline-dark mb-2">Modificar producto</button>
 
         </div>
       </div>
@@ -99,66 +99,75 @@
   <script type="text/javascript">
 
     $(document).ready(function(){
-      setearValores();
+      var ID = findGetParameter("id");
+      buscarValores();
       
-      $("#modificarProd").click(function(e) {
-        e.preventDefault();        
+      $("#modificarProd").click(function() {
         modificar();
       });
+
+      function buscarValores(){
+      
+        //$("#nombre").val("Messi"); EJEMPLO DE COMO CARGAR VALORES AL INPUT
+
+        $.ajax({
+          url: 'http://localhost/tp10/api/controller/productoController.php?action=getById',
+          type: 'POST',
+          dataType: 'json',
+          data: {id : ID}  
+        })
+        .done(function(data) {
+          //var datosArray = $.parseJSON(data);
+          setearValores(data[0]);
+        })
+        .fail(function() {
+          alert("error");
+        });
+      }
+
+      function setearValores(datos){
+        $("#nombre").val(datos['nombre']);
+        $("#descripcion").val(datos['descripcion']);
+        $("#urlImagen").val(datos['imagen']);
+        $("#stock").val(datos['stock']);
+        $("#precio").val(datos['precio']);
+      }
+
+      function modificar(){
+
+        $.ajax({
+          url:"http://localhost/tp10/api/controller/productoController.php?action=edit",
+          type: "POST",
+          data: {
+            action:           'edit',
+            id:               ID, 
+            nombre:           $("#nombre").val(),
+            descripcion:      $("#descripcion").val(),
+            imagen:           $("#urlImagen").val(),
+            precio:           $("#precio").val(),
+            stock:            $("#stock").val()
+          },
+          success:function(res){
+            alert("se modifico correctamente!");
+          }
+        })
+      }
+
+      function findGetParameter(parameterName) {
+        var result = null,
+        tmp = [];
+        location.search
+        .substr(1)
+        .split("&")
+        .forEach(function (item) {
+          tmp = item.split("=");
+          if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+        });
+        return result;
+      }
     });
 
-    function setearValores(){
-      var ID = findGetParameter("id");
-      //$("#nombre").val("Messi"); EJEMPLO DE COMO CARGAR VALORES AL INPUT
-
-      $.ajax({
-        url: 'http://localhost/tp10/api/controller/productoController.php?action=getById',
-        type: 'GET',
-        data: {id : ID},
-        dataType:"json"  
-      })
-
-     
-      .done(function() {
-       
-        console.log("success");
-      })
-      .fail(function() {
-        alert("error");
-      });
-     
-    }
-
-    function modificar(){
-      $.ajax({
-        url:"http://localhost/tp10/api/controller/productoController.php?action=edit",
-        type: "POST",
-        data: {
-          action:           'edit',
-          nombre:           $("#nombre").val(),
-          descripcion:      $("#descripcion").val(),
-          urlImagen:        $("#urlImagen").val(),
-          precio:           $("#precio").val(),
-          stock:            $("#stock").val()
-        },
-        success:function(res){
-          alert("se modifico correctamente!");
-        }
-      })
-    }
-
-    function findGetParameter(parameterName) {
-      var result = null,
-      tmp = [];
-      location.search
-      .substr(1)
-      .split("&")
-      .forEach(function (item) {
-        tmp = item.split("=");
-        if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
-      });
-      return result;
-    }
+    
 
   </script>
   <footer class="footer text-faded text-center py-5">

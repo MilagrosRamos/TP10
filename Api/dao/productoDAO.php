@@ -7,7 +7,7 @@ class ProductoDAO{
     public static function GetAll(){
         $list = array();
         $pdo = DB::Connect();
-        $stmt = $pdo->prepare("SELECT * FROM Productos");
+        $stmt = $pdo->prepare("SELECT * FROM productos");
         $stmt->execute();
         $arr = $stmt->fetchAll(PDO::FETCH_CLASS, 'Producto');
         return $arr;
@@ -27,7 +27,7 @@ class ProductoDAO{
 
     }
 
-    public static function Edit($id, $nombre, $descripcion,$imagen, $stock, $precio){
+    public static function Edit($id, $nombre, $descripcion, $imagen, $stock, $precio){
         try{
             $pdo = DB::Connect();
             $query = "UPDATE productos SET nombre='$nombre', descripcion='$descripcion', imagen='$imagen', stock='$stock', precio='$precio' WHERE id= '$id'";
@@ -53,9 +53,8 @@ class ProductoDAO{
     }
 
     public static function getByID($id){
-        $list = array();
         $pdo = DB::Connect();
-        $stmt = $pdo->prepare("SELECT * FROM Productos WHERE id = $id");
+        $stmt = $pdo->prepare("SELECT * FROM productos WHERE id = $id");
         $stmt->execute();
         $arr = $stmt->fetchAll(PDO::FETCH_CLASS, 'Producto');
         return $arr;
